@@ -1,8 +1,7 @@
-""" This is the simple HTTP server from the 'Tour of Go' tutorial.
-
-It can be found here: https://tour.golang.org/methods/13
-
-"""
+/* This is the simple HTTP server from the 'Tour of Go' tutorial.
+ *
+ * It can be found here: https://tour.golang.org/methods/13
+ */
 
 package main
 
