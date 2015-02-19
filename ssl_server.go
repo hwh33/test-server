@@ -6,10 +6,12 @@ import (
 	"os"
 )
 
-type SSLHandler struct{}
+type SSLHandler struct {
+	WelcomeMessage string
+}
 
 func (h SSLHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "Welcome")
+	fmt.Fprint(w, h.WelcomeMessage)
 }
 
 func main() {
@@ -17,11 +19,13 @@ func main() {
 	const certChainFile = sslDir + "cert_chain.crt"
 	const keyFile = sslDir + "decrypted.ssl.key"
 
-	var handler SSLHandler
+	handler := SSLHandler{
+		WelcomeMessage: "Welcome",
+	}
 
 	server := http.Server{
-		Addr:      ":http",
-		Handler:   handler,
+		Addr:    "localhost:4000",
+		Handler: handler,
 	}
 
 	// err := server.ListenAndServeTLS(certChainFile, keyFile)
