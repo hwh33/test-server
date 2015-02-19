@@ -1,4 +1,4 @@
-package main
+package plotter
 
 import (
 	"fmt"
@@ -107,25 +107,25 @@ func Pic(bounds image.Rectangle, x_increment, y_increment int) Image {
 	return Image{color.RGBAModel, bounds, color_grid}
 }
 
-func main() {
-	filepath := "/Users/Harry/Desktop/test_plot.jpeg"
+// func main() {
+// 	filepath := "/Users/Harry/Desktop/test_plot.jpeg"
 
-	// Get the directory and file names.
-	separator := strings.LastIndex(filepath, "/")
-	dir_name, file_name := filepath[:separator], filepath[separator+1:]
-	cd_err := os.Chdir(dir_name)
-	image_file, create_err := os.Create(file_name)
-	if cd_err != nil || create_err != nil {
-		fmt.Println("Error creating file:")
-		if cd_err != nil {
-			fmt.Println(cd_err)
-		} else if create_err != nil {
-			fmt.Println(create_err)
-		}
-		os.Exit(1)
-	}
+// 	// Get the directory and file names.
+// 	separator := strings.LastIndex(filepath, "/")
+// 	dir_name, file_name := filepath[:separator], filepath[separator+1:]
+// 	cd_err := os.Chdir(dir_name)
+// 	image_file, create_err := os.Create(file_name)
+// 	if cd_err != nil || create_err != nil {
+// 		fmt.Println("Error creating file:")
+// 		if cd_err != nil {
+// 			fmt.Println(cd_err)
+// 		} else if create_err != nil {
+// 			fmt.Println(create_err)
+// 		}
+// 		os.Exit(1)
+// 	}
 
-	bounds := image.Rectangle{image.Point{0, 0}, image.Point{900, 900}}
-	m := Pic(bounds, 1, 1)
-	jpeg.Encode(image_file, m, &jpeg.Options{jpeg.DefaultQuality})
-}
+// 	bounds := image.Rectangle{image.Point{0, 0}, image.Point{900, 900}}
+// 	m := Pic(bounds, 1, 1)
+// 	jpeg.Encode(image_file, m, &jpeg.Options{jpeg.DefaultQuality})
+// }
