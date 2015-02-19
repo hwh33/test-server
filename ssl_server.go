@@ -33,8 +33,9 @@ func (w FileWriter) Write(p []byte) (int, error) {
 }
 
 func main() {
-	welcomeMessageBytes, err := ioutil.ReadFile(welcomeMessageFile)
 
+	// Read the welcome message from file and use it to create the HTTP handler.
+	welcomeMessageBytes, err := ioutil.ReadFile(welcomeMessageFile)
 	handler := SSLHandler{
 		WelcomeMessage: string(welcomeMessageBytes),
 	}
@@ -51,20 +52,23 @@ func main() {
 		fmt.Println("Error creating error log file: " + err.Error())
 	}
 
+	// Create an error log which will append reported errors to the log file.
 	logFileWriter := FileWriter{
 		OpenFile: *logFile,
 	}
 	errorLog := log.New(logFileWriter, "", log.Ldate|log.Ltime)
 
+	// Initialize our server to listen on the HTTPS port.
 	server := http.Server{
 		Addr:     ":https",
 		Handler:  handler,
 		ErrorLog: errorLog,
 	}
 
+	// Start the server.
 	err = server.ListenAndServeTLS(certChainFile, keyFile)
-	// err = server.ListenAndServe()
 	if err != nil {
 		panic("Server failure: " + err.Error())
 	}
+
 }
