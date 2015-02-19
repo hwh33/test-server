@@ -54,7 +54,7 @@ func main() {
 	logFileWriter := FileWriter{
 		OpenFile: *logFile,
 	}
-	errorLog := log.New(logFileWriter, "", log.Ldate|log.Ltime|log.Lshortfile)
+	errorLog := log.New(logFileWriter, "", log.Ldate|log.Ltime)
 
 	server := http.Server{
 		Addr:     "https:",
