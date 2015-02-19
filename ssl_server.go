@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"os"
 )
@@ -18,18 +19,21 @@ func main() {
 	const sslDir = "ssl-cert" + string(os.PathSeparator)
 	const certChainFile = sslDir + "cert_chain.crt"
 	const keyFile = sslDir + "decrypted.ssl.key"
+	const welcomeMessageFile = "WelcomeMessage.txt"
+
+	welcomeMessageBytes, err := ioutil.ReadFile(welcomeMessageFile)
 
 	handler := SSLHandler{
-		WelcomeMessage: "Welcome",
+		WelcomeMessage: string(welcomeMessageBytes),
 	}
 
 	server := http.Server{
-		Addr:    "localhost:4000",
+		Addr:    ":http",
 		Handler: handler,
 	}
 
-	// err := server.ListenAndServeTLS(certChainFile, keyFile)
-	err := server.ListenAndServe()
+	// err = server.ListenAndServeTLS(certChainFile, keyFile)
+	err = server.ListenAndServe()
 	if err != nil {
 		panic("Server failure: " + err.Error())
 	}
