@@ -57,7 +57,7 @@ func main() {
 	errorLog := log.New(logFileWriter, "", log.Ldate|log.Ltime)
 
 	server := http.Server{
-		Addr:     "https:",
+		Addr:     ":https",
 		Handler:  handler,
 		ErrorLog: errorLog,
 	}
